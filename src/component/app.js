@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import Header from "./header.js"
 import Footer from "./footer.js"
 import Box from "./note.js"
@@ -8,19 +8,30 @@ import Input from "./input.js"
 
 
 function createNote(noteItem){
-    return <Box title = {noteItem.title}
-    content = {noteItem.content}/> 
+    return <Box Title = {noteItem.Title}
+    Note = {noteItem.Note}/> 
 }
 
 
+
 function Main(){
+    const [notes,setNote] = useState([]);
+
+function addNote(note){
+    setNote(prevNote=>{
+        return[
+            ...prevNote,note
+        ];
+    });
+}
+
     return (<div className = "header">
     <Header/>
-    <Input/>
+    <Input onAdd={addNote}/>
     <div className="noteMain">
-    {info.map(createNote)}
+    {notes.map(createNote)}
     </div>
-    <Footer/>
+    <Footer/> 
     </div>
     );
 }
